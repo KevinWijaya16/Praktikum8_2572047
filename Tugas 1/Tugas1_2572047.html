@@ -1,0 +1,118 @@
+<!-- [2572047] - [Kevin Wijaya] -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game - [2572047]</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: white;
+      }
+
+      .game button {
+        padding: 15px;
+        font-size: 25px;
+        margin: 0 10px;
+        border-radius: 10px;
+      }
+
+      .pembungkus {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 5px;
+        margin-bottom: auto;
+      }
+
+      #gambar-container {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        justify-content: center;
+      }
+
+      #gambar-container span {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #skor {
+        font-size: 24px;
+        font-weight: bold;
+        padding: 0 20px;
+      }
+
+      #hasil {
+        font-size: 20px;
+        font-weight: bold;
+        min-height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- [2572047] - [Kevin Wijaya] -->
+    <div class="pembungkus">
+      <div id="gambar-container">
+        <span id="gambar-pemain"></span>
+        <div id="skor"></div>
+        <span id="gambar-komputer"></span>
+      </div>
+      <div class="game">
+        <button onclick="play('batu')">🪨</button>
+        <button onclick="play('gunting')">✂️</button>
+        <button onclick="play('kertas')">📜</button>
+      </div>
+
+      <p id="hasil"></p>
+    </div>
+
+    <script>
+      let skor_pemain = 0;
+      let skor_komputer = 0;
+
+      function getImage(pilihan) {
+        if (pilihan == "batu") return "img/rock.png";
+        if (pilihan == "gunting") return "img/scissor.png";
+        if (pilihan == "kertas") return "img/paper.png";
+        return pilihan;
+      }
+
+      function play(pilihan_user) {
+        const pilihan = ["batu", "gunting", "kertas"];
+        const pilihan_komputer = pilihan[Math.floor(Math.random() * 3)];
+        let hasil = "";
+
+        if (pilihan_user === pilihan_komputer) {
+          hasil = "DRAW!";
+        } else if (
+          (pilihan_user == "batu" && pilihan_komputer == "gunting") ||
+          (pilihan_user == "gunting" && pilihan_komputer == "kertas") ||
+          (pilihan_user == "kertas" && pilihan_komputer == "batu")
+        ) {
+          hasil = "PLAYER WIN!";
+          skor_pemain++;
+        } else {
+          hasil = "BOT WIN!";
+          skor_komputer++;
+        }
+
+        document.getElementById("gambar-pemain").innerHTML =
+          `<img src="${getImage(pilihan_user)}" width="300" height="400" />`;
+        document.getElementById("gambar-komputer").innerHTML =
+          `<img src="${getImage(pilihan_komputer)}" width="300" height="400" />`;
+        document.getElementById("skor").innerText =
+          `${skor_pemain} - ${skor_komputer}`;
+        document.getElementById("hasil").innerText = hasil;
+      }
+    </script>
+  </body>
+</html>

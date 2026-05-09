@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenRGB - 2572047</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .card {
+            margin: auto;
+            border: none;
+            border-radius: 10px;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        .card h1{
+            font-weight: bold;
+            font-size: 24px;
+            text-align: center
+        }
+
+        .display-area{
+            border: 1px solid gray;
+            border-radius: 10px;
+            padding: 25px;
+            background-color: white;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .display-area #counter{
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .btn-container button{
+            width: 100px;
+            padding: 5px;
+            background-color: rgb(214, 214, 214);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .rgb-input {
+            width: 60px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .rgb-group {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .btn-reset {
+            width: 150px;
+            padding: 5px;
+            background-color: rgb(214, 214, 214);;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+       
+    </style>
+</head>
+<body>
+    <!-- [2572047] - [Kevin Wijaya] -->
+     <div class="card">
+        <h1>RGB Control Panel</h1>
+        <div class="rgb-group">
+        <input type="number" id="r" class="rgb-input" placeholder="R" min="0" max="255">
+        <input type="number" id="g" class="rgb-input" placeholder="G" min="0" max="255">
+        <input type="number" id="b" class="rgb-input" placeholder="B" min="0" max="255">
+    </div>
+
+    <div class="btn-container">
+        <button class="btn-submit" onclick="applyColor()">Terapkan</button>
+        <button class="btn-random" onclick="randomColor()">Acak
+        Warna</button>
+    </div>
+        
+    <div class="display-area">
+        <div>Skor Saat Ini:</div>
+        <div id="counter">0</div>
+    </div>
+
+    <div class="btn-container">
+        <button class="btn-add" onclick="updateScore(1)">Tambah (+1)</button>
+        <button class="btn-remove" onclick="updateScore(-1)">Kurang (-1)</button>
+    </div>
+
+    <button class="btn-reset" onclick="reset()">Reset Ke Default</button>
+
+    <hr>
+    <div class="footer">
+        <strong>&copy; 2026 [NRP] - [Nama]. All rights
+        reserved.</strong>
+    </div>
+</body>
+<script>
+    let counter = 0;
+
+    function applyColor() {
+        const r = document.getElementById('r').value;
+        const g = document.getElementById('g').value;
+        const b = document.getElementById('b').value;
+        document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function randomColor() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        document.getElementById('r').value = r;
+        document.getElementById('g').value = g;
+        document.getElementById('b').value = b;
+        document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function reset() {
+        document.body.style.backgroundColor = 'white';
+        document.getElementById('r').value = '';
+        document.getElementById('g').value = '';
+        document.getElementById('b').value = '';
+        counter = 0;
+        document.getElementById('counter').innerText = counter;
+    }
+
+    function updateScore(tambah) {
+        counter += tambah;
+        document.getElementById('counter').innerText = counter;
+    }
+</script>
+</html>

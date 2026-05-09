@@ -1,0 +1,93 @@
+<!-- [2572047] - [Kevin Wijaya] -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Matematika - [2572047]</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      
+      #result {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 50px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <!-- [2572047] - [Kevin Wijaya] -->
+    <h1>Quiz Matematika</h1>
+    <p>
+      Klik tombol di bawah untuk mulai mengerjakan soal matematika acak. Ketik "exit" atau tekan Cancel untuk berhenti.
+    </p>
+    <button onclick="mulaiQuiz()">Mulai Quiz</button>
+    <div id="result"></div>
+    <p id="datetime"></p>
+
+    <script>
+      function mulaiQuiz() {
+        const operasi = ["+", "-", "*"];
+        let skor = 0;
+        let totalSoal = 0;
+        let selesai = false;
+
+        while (!selesai) {
+          const angka1 = Math.floor(Math.random() * 20) + 1;
+          const angka2 = Math.floor(Math.random() * 20) + 1;
+
+          const operator = operasi[Math.floor(Math.random() * operasi.length)];
+
+          let jawabanBenar;
+          if (operator == "+") {
+            jawabanBenar = angka1 + angka2;
+          } else if (operator == "-") {
+            jawabanBenar = angka1 - angka2;
+          } else if (operator == "*") {
+            jawabanBenar = angka1 * angka2;
+          }
+
+          const soal = `${angka1} ${operator} ${angka2} = ?`;
+          const input = prompt(`Soal ${totalSoal + 1}:\n${soal}\n\nJawaban (atau ketik "exit" untuk keluar):`);
+
+          if (input == null || input.toLowerCase() == "exit") {
+            selesai = true;
+          } else {
+            const jawabanUser = parseFloat(input);
+
+            if (Math.abs(jawabanUser - jawabanBenar) < 0.01) {
+              alert("Benar!");
+              skor++;
+            } else {
+              alert(`Salah!\nJawaban yang benar: ${jawabanBenar}`);
+            }
+
+            totalSoal++;
+          }
+        }
+
+        if (totalSoal > 0) {
+          const lihatHasil = confirm(`Quiz selesai!\n\nApakah Anda ingin melihat hasil?`);
+
+          if (lihatHasil) {
+            const persentase = Math.round((skor / totalSoal) * 100);
+            document.getElementById("result").textContent = 
+              `Skor Akhir: ${skor}/${totalSoal}`;
+            document.getElementById("result").style.display = "block";
+            document.getElementById("datetime").textContent = 
+              `Selesai pada: ${new Date().toLocaleString("id-ID")}`;
+            document.getElementById("datetime").style.display = "block";
+          }
+        } else {
+          alert("Anda tidak menjawab soal apapun.");
+        }
+      }
+    </script>
+  </body>
+</html>
